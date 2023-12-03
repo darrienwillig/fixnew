@@ -1,14 +1,14 @@
 import { IGasFee} from "types";
 
 export const getEIP1559GasFee = (
-  baseFee: bigint, 
+  baseFee: bigint,
   maxPriorityFee: bigint,
   priorityFeeBufferPercent = 0,
 ): IGasFee => {
   const buffer = Math.round((Number(maxPriorityFee) * priorityFeeBufferPercent));
   maxPriorityFee = maxPriorityFee + BigInt(buffer);
   //https://www.blocknative.com/blog/eip-1559-fees
-  const maxFee = (2n * baseFee) + maxPriorityFee
+  const maxFee = (2n * BigInt(baseFee)) + maxPriorityFee
   return { maxFee: maxFee, maxPriorityFee: maxPriorityFee };
 }
 
@@ -30,7 +30,7 @@ export const avg = (arr: number[]) => {
 }
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const formatFeeHistory = (
-  result: any, 
+  result: any,
   numberOfBlocks: number,
 ) => {
   let blockNum = parseInt(result.oldestBlock);
